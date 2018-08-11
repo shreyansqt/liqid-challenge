@@ -1,0 +1,15 @@
+{
+  "parser": "babel-eslint",
+  "plugins": [
+    "react"
+  ],
+  "rules": {
+    "max-len": [1, 120, 2, {"ignoreComments": true}],
+    "class-methods-use-this": 0
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "airbnb-base"
+  ]
+}
