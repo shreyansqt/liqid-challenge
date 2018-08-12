@@ -2,9 +2,7 @@ import { createStore, compose, applyMiddleware } from 'redux';
 import { createBrowserHistory } from 'history';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 
-// import the root reducer
 import rootReducer from './reducers/index';
-
 import { loadState, saveState } from './localStorage';
 
 const persistedState = loadState();

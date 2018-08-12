@@ -4,10 +4,11 @@ import { withRouter } from 'react-router-dom';
 
 import * as actionCreators from '../actions/actionCreators';
 import Survey from './Survey';
+import questions from '../data/questions';
 
 function mapStateToProps(state) {
   return {
-    questions: state.questions,
+    questions,
     answers: state.answers,
   };
 }
