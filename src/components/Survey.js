@@ -23,7 +23,7 @@ export default class Survey extends React.Component {
     } = this.props;
     return (
       <div className='row d-flex align-items-center' style={{ height: '100vh' }}>
-        <div className='col-4 offset-4 py-5'>
+        <div className='col-xl-4 offset-xl-4 col-md-6 offset-md-3 col-sm-10 offset-sm-1 py-5'>
           <h1 className='text-center pb-3 border-bottom mb-3'>Liqid Survey</h1>
           <Route exact path='/' component={Start} />
           <Route path='/question/:number' render={(props) => {
