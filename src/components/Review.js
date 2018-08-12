@@ -28,7 +28,7 @@ export default class Review extends React.Component {
   render() {
     const { questions, answers } = this.props;
     return (
-      <div>
+      <div className='pt-4'>
         <p>Thanks for completing the survey! Please review your answers below:</p>
         <ul className='list-unstyled'>
           {
@@ -44,7 +44,7 @@ export default class Review extends React.Component {
             })
           }
         </ul>
-        <nav className='d-flex justify-content-between pt-3 border-top mt-3'>
+        <nav className='d-flex justify-content-between pt-3 border-top mt-5'>
           <Link
             to={`/question/${questions.length}`}
             className='btn btn-light'
