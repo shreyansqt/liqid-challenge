@@ -7,6 +7,12 @@ import Question from './Question';
 import Review from './Review';
 
 export default class Survey extends React.Component {
+  static propTypes = {
+    questions: PropTypes.array,
+    answers: PropTypes.object,
+    saveAnswer: PropTypes.any,
+  }
+
   render() {
     const { questions, answers, saveAnswer } = this.props;
     return (
@@ -16,7 +22,7 @@ export default class Survey extends React.Component {
           <Route exact path='/' component={Start} />
           <Route path='/question/:number' render={(props) => {
             const { number } = props.match.params;
-            return <Question question={questions[number - 1]} answer={answers[number - 1]} total={questions.length} saveAnswer={saveAnswer} {...props} />;
+            return <Question question={questions[number - 1]} answers={answers} total={questions.length} saveAnswer={saveAnswer} {...props} />;
           }} />
           <Route path='/review' render={props => <Review questions={questions} answers={answers} { ...props } />} />
         </div>
@@ -24,9 +30,3 @@ export default class Survey extends React.Component {
     );
   }
 }
-
-Survey.propTypes = {
-  questions: PropTypes.array,
-  answers: PropTypes.object,
-  saveAnswer: PropTypes.any,
-};

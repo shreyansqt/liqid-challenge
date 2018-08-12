@@ -8,20 +8,33 @@ export default class Input extends React.Component {
     placeholder: PropTypes.string,
     name: PropTypes.string,
     options: PropTypes.object,
-    value: PropTypes.string,
+    defaultValue: PropTypes.string,
+    value: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
     onChange: PropTypes.func,
   }
 
-  static defaultProps = {
-    value: '',
+  handleChange(event) {
+    const { type, onChange } = this.props;
+    let { value } = event.target;
+
+    if (type === 'number') {
+      value = parseInt(value, 10);
+    }
+
+    if (onChange) {
+      onChange(value);
+    }
   }
 
   input() {
     const {
       type,
       placeholder,
-      name,
       value,
+      name,
     } = this.props;
 
     return <input
@@ -29,13 +42,13 @@ export default class Input extends React.Component {
       className='form-control'
       placeholder={placeholder}
       name={name}
-      defaultValue={value}
-      ref={(el) => { this.inputEl = el; }}
+      value={value.toString()}
+      onChange={this.handleChange.bind(this)}
     />;
   }
 
   radio() {
-    const { options, name } = this.props;
+    const { options, name, value } = this.props;
     return <div className='d-flex justify-content-around'>
       {
         Object.keys(options).map((key) => {
@@ -46,9 +59,9 @@ export default class Input extends React.Component {
               type='radio'
               name={name}
               id={`${name}-${key}`}
-              defaultValue={key}
-              // checked={ open.value === value }
-              ref={(el) => { this.inputEl = el; }}
+              value={key}
+              checked={ key === value }
+              onChange={this.handleChange.bind(this)}
             />
             <label className='form-check-label ml-1' htmlFor={`${name}-${key}`}>
               {label}
@@ -69,8 +82,8 @@ export default class Input extends React.Component {
     return <select
       className='custom-select'
       name={name}
-      defaultValue={value}
-      ref={(el) => { this.inputEl = el; }}
+      value={value}
+      onChange={this.handleChange.bind(this)}
     >
       <option value='' disabled>{placeholder}</option>
       {

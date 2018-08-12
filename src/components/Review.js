@@ -24,18 +24,20 @@ export default class Review extends React.Component {
     return (
       <div>
         <p>Thanks for completing the survey! Please review your answers below:</p>
-        <ol>
+        <ul className='list-unstyled'>
           {
             questions.map((question) => {
               const { number, text } = question;
               const answer = answers[number];
-              return <li key={number}>
-                {text}:
-                <strong className='ml-1'>{this.renderAnswer(question, answer)}</strong>
+              return <li key={number} className='d-flex flex-align-center'>
+                {number})&nbsp;
+                {text}:&nbsp;
+                <strong>{this.renderAnswer(question, answer)}</strong>
+                <Link className='ml-auto' to={`/question/${number}`}>Edit</Link>
               </li>;
             })
           }
-        </ol>
+        </ul>
         <nav className='d-flex justify-content-between pt-3 border-top mt-3'>
           <Link
             to={`/question/${questions.length}`}

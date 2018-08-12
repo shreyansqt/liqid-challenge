@@ -7,8 +7,6 @@ Use:
 :)
 
 TODOs
-- Disable Next button when input is empty
-- Radio input's not recording
-- Clear form on Submit
 - Persist answers using LocalStorage
+- Clear form on Submit
 - Add progress bar

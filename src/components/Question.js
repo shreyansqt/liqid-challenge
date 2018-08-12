@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 
 import Input from './common/Input';
 
 export default class Question extends React.Component {
   static propTypes = {
     question: PropTypes.object,
-    answer: PropTypes.string,
+    answers: PropTypes.object,
     total: PropTypes.number,
     saveAnswer: PropTypes.any,
   }
@@ -16,19 +15,46 @@ export default class Question extends React.Component {
     router: PropTypes.object,
   }
 
+  constructor(props) {
+    super(props);
+    const { question, answers } = props;
+    this.state = {
+      answer: answers[question.number] || '',
+    };
+  }
+
+  handleChange(answer = '') {
+    this.setState({ answer });
+  }
+
   handleSubmit(event) {
-    const { saveAnswer, question, total } = this.props;
+    const {
+      saveAnswer,
+      question,
+      answers,
+      total,
+    } = this.props;
     const { number } = question;
+    const { answer } = this.state;
     event.preventDefault();
-    const answer = this.InputEl.inputEl.value;
     saveAnswer(number, answer);
     this.context.router.history.push(total === number ? '/review' : `/question/${number + 1}`);
+    this.handleChange(answers[number + 1]);
+  }
+
+  handleBack() {
+    const {
+      question,
+      answers,
+    } = this.props;
+    const { number } = question;
+    this.context.router.history.push(number === 1 ? '/' : `/question/${number - 1}`);
+    this.handleChange(answers[number - 1]);
   }
 
   render() {
     const {
       question,
-      answer,
       total,
     } = this.props;
 
@@ -39,6 +65,8 @@ export default class Question extends React.Component {
       placeholder,
       options,
     } = question;
+
+    const { answer } = this.state;
 
     return (
       <form onSubmit={this.handleSubmit.bind(this)} className='pt-3 text-center'>
@@ -51,18 +79,19 @@ export default class Question extends React.Component {
           name={`answer-${number}`}
           options={options}
           value={answer}
-          ref={(el) => { this.InputEl = el; }}
+          onChange={this.handleChange.bind(this)}
         />
         <nav className='d-flex justify-content-between pt-3 border-top mt-3'>
-          <Link
-            to={number === 1 ? '/' : `/question/${number - 1}`}
+          <button
+            type='button'
             className='btn btn-light'
+            onClick={this.handleBack.bind(this)}
           >
             Back
-          </Link>
+          </button>
           <input type='submit'
             className='btn btn-primary'
-            // disabled={!this.Input.input.value}
+            disabled={!answer || answer.length <= 0}
             value={number === total ? 'Review Answers' : 'Next'}
           />
         </nav>
