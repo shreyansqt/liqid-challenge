@@ -7,6 +7,5 @@ Use:
 :)
 
 TODOs
-- Persist answers using LocalStorage
-- Clear form on Submit
 - Add progress bar
+- Integrate Bootstrap

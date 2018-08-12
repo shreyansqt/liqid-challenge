@@ -10,11 +10,17 @@ export default class Survey extends React.Component {
   static propTypes = {
     questions: PropTypes.array,
     answers: PropTypes.object,
-    saveAnswer: PropTypes.any,
+    saveAnswer: PropTypes.func,
+    resetAnswers: PropTypes.func,
   }
 
   render() {
-    const { questions, answers, saveAnswer } = this.props;
+    const {
+      questions,
+      answers,
+      saveAnswer,
+      resetAnswers,
+    } = this.props;
     return (
       <div className='row d-flex align-items-center' style={{ height: '100vh' }}>
         <div className='col-4 offset-4 py-5'>
@@ -24,7 +30,7 @@ export default class Survey extends React.Component {
             const { number } = props.match.params;
             return <Question question={questions[number - 1]} answers={answers} total={questions.length} saveAnswer={saveAnswer} {...props} />;
           }} />
-          <Route path='/review' render={props => <Review questions={questions} answers={answers} { ...props } />} />
+          <Route path='/review' render={props => <Review questions={questions} answers={answers} resetAnswers={resetAnswers} { ...props } />} />
         </div>
       </div>
     );

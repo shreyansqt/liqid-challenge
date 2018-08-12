@@ -6,6 +6,7 @@ export default class Review extends React.Component {
   static propTypes = {
     questions: PropTypes.array,
     answers: PropTypes.object,
+    resetAnswers: PropTypes.func,
   }
 
   renderAnswer(question, answer) {
@@ -17,6 +18,11 @@ export default class Review extends React.Component {
       default:
         return answer;
     }
+  }
+
+  handleSubmit() {
+    const { resetAnswers } = this.props;
+    resetAnswers();
   }
 
   render() {
@@ -31,9 +37,9 @@ export default class Review extends React.Component {
               const answer = answers[number];
               return <li key={number} className='d-flex flex-align-center'>
                 {number})&nbsp;
-                {text}:&nbsp;
+                {text}&nbsp;
                 <strong>{this.renderAnswer(question, answer)}</strong>
-                <Link className='ml-auto' to={`/question/${number}`}>Edit</Link>
+                <Link className='ml-auto' to={`/question/${number}`}><small>Edit</small></Link>
               </li>;
             })
           }
@@ -45,7 +51,7 @@ export default class Review extends React.Component {
           >
             Back
           </Link>
-          <Link to='/' className='btn btn-primary'>Submit Answers</Link>
+          <Link to='/' onClick={this.handleSubmit.bind(this)} className='btn btn-primary'>Submit Answers</Link>
         </nav>
       </div>
     );

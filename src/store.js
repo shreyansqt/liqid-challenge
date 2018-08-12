@@ -5,23 +5,24 @@ import { connectRouter, routerMiddleware } from 'connected-react-router';
 // import the root reducer
 import rootReducer from './reducers/index';
 
-import questions from './data/questions';
+import { loadState, saveState } from './localStorage';
 
-// create an object for default data
-const initialState = {
-  questions,
-};
+const persistedState = loadState();
 
 export const history = createBrowserHistory();
 
 const store = createStore(
   connectRouter(history)(rootReducer), // new root reducer with router state
-  initialState,
+  persistedState,
   compose(
     applyMiddleware(
       routerMiddleware(history), // for dispatching history actions
     ),
   ),
 );
+
+store.subscribe(() => {
+  saveState(store.getState());
+});
 
 export default store;

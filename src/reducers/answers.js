@@ -8,6 +8,9 @@ function saveAnswer(state = '', action) {
 }
 
 function answers(state = {}, action) {
+  if (action.type === 'RESET_ANSWERS') {
+    return {};
+  }
   if (typeof action.number !== 'undefined') {
     return Object.assign({}, state, { [action.number]: saveAnswer(state[action.number], action) });
   }
