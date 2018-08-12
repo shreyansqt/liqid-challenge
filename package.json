@@ -4,8 +4,7 @@
   "description": "Frontend coding challenge by liqid.de",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --mode development --open --hot",
-    "build": "webpack --mode production"
+    "start": "webpack-dev-server --mode development --open --hot"
   },
   "repository": {
     "type": "git",
