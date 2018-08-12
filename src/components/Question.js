@@ -69,8 +69,15 @@ export default class Question extends React.Component {
     const { answer } = this.state;
 
     return (
-      <form onSubmit={this.handleSubmit.bind(this)} className='pt-3 text-center'>
-        <small className='text-muted text-uppercase'>{number}/{total}</small>
+      <form onSubmit={this.handleSubmit.bind(this)} className='text-center'>
+        <div className='progress mb-5'>
+          <div
+            className='progress-bar'
+            style={{ width: `${number / total * 100}%` }}
+          >
+            {number}/{total}
+          </div>
+        </div>
         <h3 className='mt-2 mb-5'>{text}</h3>
         <Input
           className='my-5'

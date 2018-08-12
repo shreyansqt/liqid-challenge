@@ -7,5 +7,4 @@ Use:
 :)
 
 TODOs
-- Add progress bar
 - Integrate Bootstrap
